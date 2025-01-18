@@ -6,4 +6,15 @@
 - imported a Navbar component
 - installed react-router-dom
 - created routing using react router dom
+- created login page 
+- installed axios 
+- CORS- installed CORS in backend=>add middleware to with configuration: origin, credentials: true
+- CORS- in frontend 
+- install redux store
+- configured the store (appStore)
+- make the userSlice and add reducer to store
+- add redux dev tool in chrome 
+- navbar should update with the login, like - user profile picture
+- now updated the login login as if only the loggined person can access the other routes otherwise redirected to login page
+- user info must come from the token to avoid flushing of the redux store after every refresh
 - 
