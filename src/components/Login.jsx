@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
 import { useNavigate } from "react-router";
@@ -11,6 +11,7 @@ const Login = () => {
     const passwordRef=useRef(null);
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const [errmsg,seterrmsg]=useState("");
 
     const handleLogin=async()=>{
         const email=emailRef.current.value;
