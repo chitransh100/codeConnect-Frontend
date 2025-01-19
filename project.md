@@ -18,4 +18,5 @@
 - now updated the login login as if only the loggined person can access the other routes otherwise redirected to login page
 - user info must come from the token to avoid flushing of the redux store after every refresh
 - build the logout feature 
+- get the feed and add it to the redux store
 - 
