@@ -6,7 +6,7 @@ const FeedCard = ({ feed }) => {
   return (
     <>
       <div className="card bg-base-200 w-96 shadow-xl h-full">
-        <figure className="mt-4 ml-4 mr-4 h-[300px]">
+        <figure className="">
           <img src={photoURL || fallback} alt="Shoes" />
         </figure>
         <div className="card-body ">

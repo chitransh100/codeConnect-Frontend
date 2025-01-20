@@ -1,7 +1,23 @@
-const Profile=()=>{
-    return<>
-    <h1>Profile</h1>
-    </>
-}
+import { useSelector } from "react-redux";
+import Avatar from "./Avatar";
+import BioData from "./BioData";
 
-export default Profile
+const Profile = () => {
+  const user = useSelector((store) => store.user);
+  // console.log(user);
+  // const { firstName, lastName, age, photoURL, sex, skills, about } = user;
+  return (
+    <>
+      {user && (<div>
+        <Avatar user={user}></Avatar>
+        <BioData user={user}></BioData>
+      </div>)}
+
+
+
+      {/*  */}
+    </>
+  );
+};
+
+export default Profile;

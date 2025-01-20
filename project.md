@@ -19,4 +19,11 @@
 - user info must come from the token to avoid flushing of the redux store after every refresh
 - build the logout feature 
 - get the feed and add it to the redux store
-- 
+- build the view connections and view requests feature 
+
+
+
+# TO do 
+- create the profile page and a update profile page
+- create the live card update page 
+- create a send request and accept the request page 
