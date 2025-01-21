@@ -33,9 +33,9 @@ const Navbar = () => {
     <>
       <div className="navbar bg-base-200 pt-3">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">
+          {(user?(<Link to="/" className="btn btn-ghost text-xl">
             CodeConnect
-          </Link>
+          </Link>):(<Link to="/login" className="btn btn-ghost text-xl">CodeConnect</Link>))}
         </div>
         {user && (
           <div className="flex-none gap-2 ">

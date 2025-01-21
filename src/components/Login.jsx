@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
 import { useNavigate } from "react-router";
 import { BaseURL } from "../constant";
+import Signup from "./Signup";
 
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
     const passwordRef=useRef(null);
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    const [errmsg,seterrmsg]=useState("");
+    const [signup,setSignup]=useState(false)
 
     const handleLogin=async()=>{
         const email=emailRef.current.value;
@@ -35,8 +36,9 @@ const Login = () => {
         }
         
     }
+
   return (
-    <div className="flex justify-center item-center my-10">
+    signup?<Signup setSignup={setSignup}></Signup>:<div className="flex justify-center item-center my-10">
       <div className="card bg-base-100 w-96 shadow-xl ">
         <div className="card-body flex flex-direction">
           {/* <h2 className="card-title flex justify-center">Login</h2>
@@ -59,7 +61,9 @@ const Login = () => {
             className="input input-bordered input-primary w-full max-w-xs mb-3"
           />
           <button onClick={handleLogin } className="btn btn-primary justify-center mt-5">Login</button>
+          <div>New user? <a onClick={()=>{setSignup(true)}} className="cursor-pointer">Signup</a></div>
         </div>
+        
       </div>
     </div>
   );

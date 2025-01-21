@@ -1,7 +1,18 @@
-import { fallback } from "../constant";
+import { BaseURL, fallback } from "../constant";
+import axios from "axios";
 
 const FeedCard = ({ feed }) => {
   const { firstName, lastName, age, photoURL, sex, skills, about } = feed;
+  const handleSendRequest=async(status)=>{
+      try{
+          const res=await axios.post(BaseURL+"/request/send/"+status+"/"+toUserID,{},{withCredentials:true});
+          console.log(status)
+          console.log(feed._id)
+          console.log(res);
+      }catch(err){
+
+      }
+  }
 
   return (
     <>
@@ -26,10 +37,10 @@ const FeedCard = ({ feed }) => {
           <p></p>
           <div className="flex justify-center space-x-20">
           <div className="card-actions ">
-            <button className="btn btn-info ">Ignore</button>
+            <button onClick={()=>{handleSendRequest("ignored")}} className="btn btn-info ">Ignore</button>
           </div>
           <div className="card-action justify-end">
-          <button className="btn btn-success ">Intrested</button>
+          <button className="btn btn-success " onClick={()=>{handleSendRequest("intrested")}}>Intrested</button>
           </div>
           </div>
           
