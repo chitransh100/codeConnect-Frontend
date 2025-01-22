@@ -1,40 +1,49 @@
+import { useDispatch } from "react-redux";
 import { BaseURL, fallback } from "../constant";
 import axios from "axios";
+import {deleteFeed} from "../Utils/feedSlice"
+import Loading from "./Loading";
 
-const FeedCard = ({ feed }) => {
-  const { firstName, lastName, age, photoURL, sex, skills, about } = feed;
+const FeedCard = ({ feed, onremove }) => {
+  const dispatch=useDispatch();
+  const { name, age, photourl, sex, skills } = feed;
+  // console.log(feed.name, age, photourl, sex, skills)
+  
   const handleSendRequest=async(status)=>{
       try{
-          const res=await axios.post(BaseURL+"/request/send/"+status+"/"+toUserID,{},{withCredentials:true});
-          console.log(status)
-          console.log(feed._id)
-          console.log(res);
+          const res=await axios.post(BaseURL+"/request/send/"+status+"/"+feed._id,{},{withCredentials:true});
+          dispatch(deleteFeed(feed._id))
+          if(!res)
+          {
+            console.log("Request failed");
+            return;
+          }
+          onremove(feed._id);
       }catch(err){
-
+        console.log(err.message)
       }
+
   }
 
   return (
     <>
-      <div className="card bg-base-200 w-96 shadow-xl h-full">
+      <div className="card bg-base-200 w-96 shadow-xl h-full max-h-[540px]">
         <figure className="">
-          <img src={photoURL || fallback} alt="Shoes" />
+          <img src={photourl || fallback} alt="Shoes" />
         </figure>
         <div className="card-body ">
           <ul>
             <li className="card-title">
-              {feed.firstName} {feed.lastName}, {age}
+              {name}, {age}
             </li>
             <li>{sex}</li>
-            <li>{about}</li>
             <li>
+              Skill set: 
               {skills.map((element, index) => (
-                <span key={index}>skill-set: {element} </span>
+                <span key={index}> {element} </span>
               ))}
             </li>
           </ul>
-          <h2 className=""></h2>
-          <p></p>
           <div className="flex justify-center space-x-20">
           <div className="card-actions ">
             <button onClick={()=>{handleSendRequest("ignored")}} className="btn btn-info ">Ignore</button>

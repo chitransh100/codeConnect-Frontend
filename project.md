@@ -22,7 +22,7 @@
 - build the view connections and 
 - view requests feature 
 - add the feature to accept and reject the requests
-- 
+- add the feature of signup 
 
 
 
@@ -30,6 +30,6 @@
 - create the profile page and a update profile page
 - create the live card update page 
 - create a send request and accept the request page 
-- create the signup page 
-- update the backend for that 
 - 
+
+- updated the feed UI

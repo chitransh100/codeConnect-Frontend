@@ -1,8 +1,11 @@
 import axios from "axios";
 import { BaseURL, fallback } from "../constant";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeRequest } from "../Utils/requestSlice";
 
 const RequestCards = ({ fromUser, requestID }) => {
+  const dispatch=useDispatch()
   if(!requestID){
     console.error("requestID is missing")
     return;
@@ -10,7 +13,9 @@ const RequestCards = ({ fromUser, requestID }) => {
   const handleRequest = async (status) => {
 
     try {
-      const res = await axios.post(`${BaseURL}/request/review/${status}/${requestID}`, {}, { withCredentials: true }); // Handle the response if needed
+      const res = await axios.post(`${BaseURL}/request/review/${status}/${requestID}`, {}, { withCredentials: true }); // 
+      // Handle the response if needed
+      dispatch(removeRequest(requestID));
     } catch (error) {
       console.error("Error making request:", error);
     }
@@ -24,13 +29,13 @@ const RequestCards = ({ fromUser, requestID }) => {
             <div className="avatar">
               <div className="mask mask-squircle h-12 w-12">
                 <img
-                  src={fromUser?.photoURL || fallback}
+                  src={fromUser?.photourl || fallback}
                   alt="Avatar Tailwind CSS Component"
                 />
               </div>
             </div>
             <div>
-              <div className="font-bold">{fromUser?.firstName} {fromUser?.lastName}</div>
+              <div className="font-bold">{fromUser?.name}</div>
               <div className="text-sm opacity-50">{fromUser?.sex} | {fromUser?.age}</div>
             </div>
           </div>

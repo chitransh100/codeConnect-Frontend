@@ -17,7 +17,7 @@ const Login = () => {
     const handleLogin=async()=>{
         const email=emailRef.current.value;
         const password=passwordRef.current.value;
-        // console.log("email "+email+" password: "+password);
+        console.log("email "+email+" password: "+password);
         try{
           const res=await axios.post(
             BaseURL+"/login",
@@ -27,6 +27,7 @@ const Login = () => {
             },
             {withCredentials:true}
           )
+          console.log(res)
           dispatch(addUser(res.data.user));
           // console.log(res.data.user)
         

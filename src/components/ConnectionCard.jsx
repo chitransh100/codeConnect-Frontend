@@ -9,12 +9,12 @@ const ConnectionCard=({connections})=>{
                 <div className="avatar">
                   <div className="mask mask-squircle h-12 w-12">
                     <img
-                      src={connections?.photoURL||fallback}
+                      src={connections?.photourl||fallback}
                       alt="Avatar Tailwind CSS Component" />
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold">{connections?.firstName} {connections?.lastName}</div>
+                  <div className="font-bold">{connections?.name}</div>
                   <div className="text-sm opacity-50">{connections?.sex} | {connections?.age}</div>
                 </div>
               </div>

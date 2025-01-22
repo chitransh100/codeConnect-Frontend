@@ -12,12 +12,12 @@ const Signup = ({ setSignup }) => {
   const SkillsRef = useRef();
   const PhotoRef = useRef();
 
-  const handleSignup = async (event) => {
-    event.preventDefault(); // Prevent page refresh
+  const handleSignup = async () => {
+    // event.preventDefault(); // Prevent page refresh
 
     const splitStringToArray = (inputString) =>
       inputString.split(/[\s,]+/).filter((item) => item.trim() !== "");
-    const navigate=useNavigate();
+    
     const name = NameRef.current.value;
     const age = AgeRef.current.value;
     const sex = SexRef.current.value;
@@ -32,6 +32,7 @@ const Signup = ({ setSignup }) => {
     }
 
     const skills = splitStringToArray(skilltext);
+    
 
     try {
       const res = await axios.post(
@@ -39,14 +40,15 @@ const Signup = ({ setSignup }) => {
         { name, age, sex, email, password, skills, photourl },
         { withCredentials: true }
       );
+      console.log(res)
       if (res.status === 200) {
         alert("Signup successful!");
-        // setSignup(false); // Redirect to signin
+        setSignup(false); // Redirect to signin
       }
-      // navigate("/login")
+      
+      
     } catch (error) {
-      console.error("Signup failed:", error);
-      alert("An error occurred during signup. Please try again.");
+      alert("Signup failed: "+error.message);
     }
   };
 
