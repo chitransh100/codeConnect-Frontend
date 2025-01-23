@@ -40,7 +40,7 @@ const FeedCard = ({ feed, onremove }) => {
             <li>
               Skill set: 
               {skills.map((element, index) => (
-                <span key={index}> {element} </span>
+                <span className="badge badge-accent badge-sm mx-2" key={index}> {element} </span>
               ))}
             </li>
           </ul>

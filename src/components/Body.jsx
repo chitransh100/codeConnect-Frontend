@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../Utils/userSlice";
+import Footer from "./Footer";
 
 //as soon as i logged in i got the token of the user now the token contains the id of the user and throught this the userAuth will verify the user in the /profile/view and will give us the user data from that
 //through this the problem of redux store which was being emptied after every refreseh will get the user info directly from the token
@@ -41,6 +42,7 @@ const Body = () => {
     <>
       <Navbar></Navbar>
       <Outlet></Outlet>
+      <Footer></Footer>
     </>
   );
 };

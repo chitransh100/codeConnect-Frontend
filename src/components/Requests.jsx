@@ -28,16 +28,30 @@ const Requests = () => {
   
 
   if(!requests){
-    return
+    return 
   }
   if(requests?.data?.length===0){
-    return<h1>No Request Found</h1>
+    return <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+    <div className="text-center max-w-md">
+      
+      <h1 className="text-2xl font-bold text-gray-700 mb-2">No Requests Found 🫤</h1>
+      <p className="text-gray-500 mb-6">
+        It seems like you haven't received any requests yet. Once you do, they’ll appear here!
+      </p>
+      <button
+        onClick={fetchRequest}
+        className="btn btn-primary"
+      >
+        Refresh
+      </button>
+    </div>
+  </div>
   }
 
 
   return (
-    <div>
-      <div className="overflow-x-auto">
+    <div >
+      <div className="overflow-x-auto max-h-full">
         <table className="table">
           {/* head */}
           <thead>

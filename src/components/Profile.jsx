@@ -9,13 +9,8 @@ const Profile = () => {
   return (
     <>
       {user && (<div>
-        <Avatar user={user}></Avatar>
         <BioData user={user}></BioData>
       </div>)}
-
-
-
-      {/*  */}
     </>
   );
 };

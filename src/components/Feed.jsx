@@ -21,11 +21,31 @@ const Feed=()=>{
         
     }
     const handleRemove = (id) => {
-        dispatch(deleteFeed(id));
-      };
-    useEffect(()=>{
-        fetchFeed()
-    },[])
+      dispatch(deleteFeed(id));
+    };
+  useEffect(()=>{
+      fetchFeed()
+  },[])
+    if (feed?.length === 0) {
+        return (
+          <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+            <div className="text-center max-w-md">
+              <h1 className="text-2xl font-bold text-gray-700 mb-2">No Feed Available 🫤</h1>
+              <p className="text-gray-500 mb-6">
+                Your feed seems to be empty right now. Once there’s something to show, it’ll appear here!
+              </p>
+              <button
+                onClick={fetchFeed}
+                className="btn btn-primary"
+              >
+                Refresh Feed
+              </button>
+            </div>
+          </div>
+        );
+      }
+      
+    
     
 
 

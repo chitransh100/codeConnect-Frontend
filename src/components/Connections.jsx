@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "../constant";
 import { useSelect } from "@heroui/react";
 import { addConnections } from "../Utils/connectionsSlice";
-
 import ConnectionCard from "./connectionCard";
 
 const Connections=()=>{
@@ -13,6 +12,7 @@ const Connections=()=>{
     const fetchConnections=async()=>{
         try{
             const res=await axios.get(BaseURL+"/user/connections",{withCredentials:true})
+            console.log(res.data.data)
             dispatch(addConnections(res.data.data));
 
         }catch(err){
@@ -25,6 +25,26 @@ const Connections=()=>{
     useEffect(()=>{
         fetchConnections()
     },[])
+
+    if (connections?.length === 0) {
+      return (
+        <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+          <div className="text-center max-w-md">
+            <h1 className="text-2xl font-bold text-gray-700 mb-2">No Connections Found 🫤</h1>
+            <p className="text-gray-500 mb-6">
+              It seems like you haven't made any connections yet. Once you do, they’ll appear here!
+            </p>
+            <button
+              onClick={fetchConnections}
+              className="btn btn-primary"
+            >
+              Refresh Connections
+            </button>
+          </div>
+        </div>
+      );
+    }
+    
 
     return<div>
     <div className="overflow-x-auto">

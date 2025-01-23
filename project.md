@@ -23,13 +23,13 @@
 - view requests feature 
 - add the feature to accept and reject the requests
 - add the feature of signup 
-
-
-
-# TO do 
+- updated the feed UI
 - create the profile page and a update profile page
 - create the live card update page 
 - create a send request and accept the request page 
-- 
 
-- updated the feed UI
+
+
+
+
+
