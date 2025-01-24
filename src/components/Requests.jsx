@@ -3,7 +3,6 @@ import RequestCards from "./RequestCards";
 import { useEffect } from "react";
 import axios from "axios";
 import { BaseURL } from "../constant";
-import Message from "./Message";
 import { addRequests } from "../Utils/requestSlice";
 
 const Requests = () => {

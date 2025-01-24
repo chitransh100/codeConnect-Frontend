@@ -4,7 +4,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "../constant";
 import { useSelect } from "@heroui/react";
 import { addConnections } from "../Utils/connectionsSlice";
-import ConnectionCard from "./connectionCard";
+import ConnectionCard from './ConnectionCard'
 
 const Connections=()=>{
 
