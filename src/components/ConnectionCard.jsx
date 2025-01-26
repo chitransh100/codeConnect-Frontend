@@ -1,5 +1,6 @@
 import { fallback } from "../constant";
 import React from "react";
+import { Link } from "react-router";
 
 const ConnectionCard=({connections})=>{
     return<>
@@ -30,7 +31,7 @@ const ConnectionCard=({connections})=>{
               <br />
               
             </td>
-            <td><button className="btn btn-ghost btn-xs">Details</button></td>
+            <td><Link to={"/chat/"+connections._id}><button className="btn btn-accent btn-outline">Chat</button></Link></td>
           </tr>
         </>
 }
