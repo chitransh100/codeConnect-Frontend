@@ -11,16 +11,17 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
 
+  const socket=createSocketConnection();
   const sendMessage = () => {
-    if (input.trim()) {
-      setMessages([
-        ...messages,
-        { id: messages.length + 1, sender: "me", text: input },
-      ]);
+    // if (input.trim()) {
+    //   setMessages([
+    //     ...messages,
+    //     { text: input, sender: user.name },
+    //   ]);
       setInput("");
-    }
-    const socket=createSocketConnection();
-    socket.emit("sendMessage",{name:user.name, userID, targetUserID, input})
+    // }
+    socket.emit("sendMessage",{name:user.name,  userID, targetUserID, input})
+    console.log(messages)
   };
 
 
@@ -36,7 +37,8 @@ const Chat = () => {
     //this emmit an event called join chat
     socket.on("messageReceive",({name,input})=>{
         console.log(name+" has send "+input)
-        setMessages((messages)=>{{[...messages,{input,name}]}})
+        setMessages((messages)=>[...messages,{sender:name,text:input}])
+        console.log(messages)
     })
     return () => {
       //just clean the socket beacuse it causes loose sockets
@@ -57,16 +59,16 @@ const Chat = () => {
 
         {/* Chat Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages?.map((msg) => (
+          {messages?.map((msg,index) => (
             <div
-              key={msg.id}
+              key={index}
               className={`flex ${
-                msg.sender === "me" ? "justify-end" : "justify-start"
+                msg.sender === user.name ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 className={`chat-bubble ${
-                  msg.sender === "me"
+                  msg.sender === user.name
                     ? "bg-blue-500 text-white"
                     : "bg-gray-300 text-black"
                 } p-3 rounded-2xl max-w-xs`}
