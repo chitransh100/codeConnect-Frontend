@@ -65,8 +65,7 @@ const Chat = () => {
     <div className="h-screen flex justify-center">
       <div className="w-full max-w-md h-[90%] bg-white rounded-2xl shadow-lg flex flex-col">
         <div className="bg-blue-500 text-white p-4 flex items-center justify-between rounded-t-2xl">
-          <h1 className="text-lg font-bold">Chat with {targetUserID}</h1>
-          <span className="text-sm">Online</span>
+          <h1 className="text-lg font-bold">Chat</h1>
         </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages?.map((msg, index) => (

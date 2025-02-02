@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BaseURL } from "../constant";
-import { useSelect } from "@heroui/react";
 import { addConnections } from "../Utils/connectionsSlice";
 import ConnectionCard from './ConnectionCard'
+import { useState } from "react";
 
 const Connections=()=>{
 
     const dispatch=useDispatch();
+    const [loading,setLoading]=useState(false)
     const fetchConnections=async()=>{
         try{
+            setLoading(true);
             const res=await axios.get(BaseURL+"/user/connections",{withCredentials:true})
             console.log(res.data.data)
             dispatch(addConnections(res.data.data))
@@ -18,6 +20,8 @@ const Connections=()=>{
 
         }catch(err){
             console.log(err.message)
+        }finally{
+          setLoading(false);
         }
     }
     const connections=useSelector((store)=>store.connections)
@@ -26,6 +30,15 @@ const Connections=()=>{
     useEffect(()=>{
         fetchConnections()
     },[])
+
+    if (loading) {
+      return (
+        <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+          <span className="loading loading-bars loading-lg"></span>
+          <p className="text-gray-500 mt-4">Loading your Connections...</p>
+        </div>
+      );
+    }
 
     if (connections?.length === 0) {
       return (

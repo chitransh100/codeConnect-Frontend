@@ -1,19 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import RequestCards from "./RequestCards";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { BaseURL } from "../constant";
 import { addRequests } from "../Utils/requestSlice";
 
 const Requests = () => {
   const dispatch = useDispatch();
-
+  const [loading,setLoading]=useState(false);
   const fetchRequest = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(BaseURL + "/user/requests/received", { withCredentials: true });
       dispatch(addRequests(res.data));
     } catch (err) {
       console.log(err.message);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -24,11 +27,20 @@ const Requests = () => {
 
   const requests = useSelector((store) => store.requests);
   console.log(requests)
-  
 
   if(!requests){
     return 
   }
+  
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+        <span className="loading loading-bars loading-lg"></span>
+        <p className="text-gray-500 mt-4">Loading your Requests...</p>
+      </div>
+    );
+  }
+
   if(requests?.data?.length===0){
     return <div className="flex flex-col items-center justify-center h-screen bg-base-200">
     <div className="text-center max-w-md">
