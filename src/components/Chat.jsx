@@ -12,6 +12,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const socket = useRef(null);
+  const [loading,setLoading]=useState(false);
 
   const sendMessage = () => {
     if (input.trim() && socket.current) {
@@ -29,7 +30,7 @@ const Chat = () => {
     
     
     try{
-      
+      setLoading(true)
       const chat=await axios.get(BaseURL+"/chat/"+targetUserID,{withCredentials:true});
       setMessages(chat.data.message);
 
@@ -37,6 +38,8 @@ const Chat = () => {
     }catch(err){
       
       console.error(err.message);
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -61,13 +64,17 @@ const Chat = () => {
   }, [userID, targetUserID]);
 
   console.log(messages)
+
   return (
     <div className="h-screen flex justify-center">
       <div className="w-full max-w-md h-[90%] bg-white rounded-2xl shadow-lg flex flex-col">
         <div className="bg-blue-500 text-white p-4 flex items-center justify-between rounded-t-2xl">
           <h1 className="text-lg font-bold">Chat</h1>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {(loading)?(<div className="flex flex-col items-center justify-center h-screen bg-base-200">
+        <span className="loading loading-bars loading-lg"></span>
+        <p className="text-gray-500 mt-4">Loading your Chats...</p>
+      </div>):(<div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages?.map((msg, index) => (
             <div
               key={index}
@@ -86,7 +93,8 @@ const Chat = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div>)}
+        
         <div className="bg-gray-100 p-4 flex items-center border-t rounded-b-2xl">
           <input
             type="text"
