@@ -1,30 +1,27 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BaseURL } from "../constant";
-import { useNavigate } from "react-router";
 
 const Signup = ({ setSignup }) => {
   const NameRef = useRef();
   const AgeRef = useRef();
-  const SexRef = useRef();
   const EmailRef = useRef();
   const PasswordRef = useRef();
   const SkillsRef = useRef();
   const PhotoRef = useRef();
+  const [selectedSex, setSelectedSex] = useState(""); // Use state for dropdown selection
 
   const handleSignup = async () => {
-    // event.preventDefault(); // Prevent page refresh
-
     const splitStringToArray = (inputString) =>
       inputString.split(/[\s,]+/).filter((item) => item.trim() !== "");
-    
+
     const name = NameRef.current.value;
     const age = AgeRef.current.value;
-    const sex = SexRef.current.value;
     const email = EmailRef.current.value;
     const password = PasswordRef.current.value;
     const skilltext = SkillsRef.current.value;
     const photourl = PhotoRef.current.value;
+    const sex = selectedSex; // Use selectedSex from state
 
     if (!name || !age || !sex || !email || !password || !photourl) {
       alert("Please fill in all required fields.");
@@ -32,23 +29,20 @@ const Signup = ({ setSignup }) => {
     }
 
     const skills = splitStringToArray(skilltext);
-    
 
     try {
       const res = await axios.post(
-        BaseURL+"/signup",
+        BaseURL + "/signup",
         { name, age, sex, email, password, skills, photourl },
         { withCredentials: true }
       );
-      console.log(res)
+      console.log(res);
       if (res.status === 200) {
         alert("Signup successful!");
         setSignup(false); // Redirect to signin
       }
-      
-      
     } catch (error) {
-      alert("Signup failed: "+error.message);
+      alert("Signup failed: " + error.message);
     }
   };
 
@@ -62,7 +56,7 @@ const Signup = ({ setSignup }) => {
             features and start your journey with us. Let’s get started! 🚀
             <br />
             You have to SignIn again after signup
-            <br/>
+            <br />
             Already have an account?{" "}
             <a
               onClick={() => {
@@ -75,10 +69,7 @@ const Signup = ({ setSignup }) => {
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
-          <div
-            // onSubmit={()=>handleSignup()} // Change to form's onSubmit
-            className="card-body max-h-[625px] overflow-auto [scrollbar-width:none] [-ms-overflow-style:none]"
-          >
+          <div className="card-body max-h-[625px] overflow-auto [scrollbar-width:none] [-ms-overflow-style:none]">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -103,18 +94,32 @@ const Signup = ({ setSignup }) => {
                 required
               />
             </div>
+            {/* Dropdown for Sex */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Sex</span>
               </label>
-              <input
-                type="text"
-                ref={SexRef}
-                placeholder="Sex"
-                className="input input-bordered"
-                required
-              />
+              <div className="dropdown w-full">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn input input-bordered w-full text-left"
+                >
+                  {selectedSex || "Select Sex"}
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-10 w-full p-2 shadow"
+                >
+                  {["male", "female", "other"].map((sex) => (
+                    <li key={sex}>
+                      <a onClick={() => setSelectedSex(sex)}>{sex}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -162,7 +167,7 @@ const Signup = ({ setSignup }) => {
               ></textarea>
             </div>
             <div className="form-control mt-6">
-              <button onClick={()=>handleSignup()} className="btn btn-primary">
+              <button onClick={handleSignup} className="btn btn-primary">
                 Signup
               </button>
             </div>
